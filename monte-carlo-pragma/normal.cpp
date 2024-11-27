@@ -36,20 +36,14 @@ int parse_int(char* s)
 
 int main(int args, char* argv[]) {
     char* program_name = argv[0];
-    //сделать омп нам = 14
     int omp_num=14;
     double result;
     omp_num = parse_int(argv[1]);
-    //cout << omp_num << '\n';
     int generator;
-    //cout << "ddd";
     time_t t1 = time(NULL);
     unsigned int number = (unsigned int) (t1);
-    //cout << number << '\n';
     if (args == 5) {
-        //cout << "gen" << '\n';
         generator = parse_int(argv[4]);
-        //cout << generator << '\n';
     }
     else {
         generator = 1;
@@ -57,10 +51,6 @@ int main(int args, char* argv[]) {
     long long count_of_point;
     char* file_in = argv[2];
     char* file_out = argv[3];
-    //cout << file_in << file_out << '\n';
-    // cout << omp_num;
-    // cout << program_name << ' ' << omp_num << ' ' << file_in << ' ' << file_out << ' ' << generator;
-    // return 0;
     double octahedronX1, octahedronY1, octahedronZ1;
     double octahedronX2, octahedronY2, octahedronZ2;
     double octahedronX3, octahedronY3, octahedronZ3;
@@ -71,7 +61,6 @@ int main(int args, char* argv[]) {
                         &octahedronX2, &octahedronY2, &octahedronZ2,
                         &octahedronX3, &octahedronY3, &octahedronZ3);
     fclose(fin);
-    //cout << count_of_point<< "" << octahedronX1 << " " << " " << octahedronX2 << " " << octahedronX3<< " " << octahedronY1<< " " << octahedronY2<< " " << octahedronY3 <<'\n';
     double len_of_storon = min(min(dist_between_two_points(octahedronX1, octahedronY1,octahedronZ1,octahedronX2,octahedronY2, octahedronZ2),dist_between_two_points(octahedronX2, octahedronY2, octahedronZ2, octahedronX3, octahedronY3, octahedronZ3)),dist_between_two_points(octahedronX1, octahedronY1, octahedronZ1, octahedronX3, octahedronY3, octahedronZ3));
     double length_square=len_of_storon * pow(2,0.5);
     double objem = pow(len_of_storon,3) * pow(2,0.5) / 3;
@@ -80,7 +69,6 @@ int main(int args, char* argv[]) {
     double octahedronCenterX = 0;
     double octahedronCenterY = 0;
     double octahedronCenterZ = 0;
-    //cout << len_of_storon;
     double start = omp_get_wtime();
 
     if (generator == 0) {
@@ -112,7 +100,6 @@ int main(int args, char* argv[]) {
         //cout << result << '\n';
     } else if (generator == 1) {
         long long count_in = 0;
-        //unsigned int seed = 12345; // Начальное значение семени
         #pragma omp parallel if(omp_num > 0) num_threads(omp_num)
         {
             long long local_in = 0;
@@ -155,9 +142,7 @@ int main(int args, char* argv[]) {
             count_in += local_in;
         }
         result = (double) count_in / count_of_point;
-        //cout << area << '\n';
         result *= area;
-        //cout << result << '\n';
     } else if (generator == 2) {
         long long count_in = 0;
         #pragma omp parallel if(omp_num > 0) num_threads(omp_num)
@@ -187,9 +172,6 @@ int main(int args, char* argv[]) {
     fprintf(fcl,"%g\n",result);
     fclose(fcl);
     double end = omp_get_wtime();
-    //cout << objem << endl;
-    //printf(“time(% i thread(s)) : % g ms\n”, omp_num, (end - start) * 1000);
-    //double res = (end - start)*100;
     cout << (end - start);
 }
 
