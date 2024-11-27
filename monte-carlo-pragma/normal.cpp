@@ -84,7 +84,6 @@ int main(int args, char* argv[]) {
             
             #pragma omp for schedule(static)
             for (long long i = 0; i < count_of_point; i++) {
-                //cout >> i;
                 point_x = (double)gen() / UINT_MAX * (length_square)-length_okr;
                 point_y = (double)gen() / UINT_MAX * (length_square)-length_okr;
                 point_z = (double)gen() / UINT_MAX * (length_square)-length_okr;
