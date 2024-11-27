@@ -97,7 +97,6 @@ int main(int args, char* argv[]) {
         }
         result = (double) count_in / count_of_point;
         result *= (double) area;
-        //cout << result << '\n';
     } else if (generator == 1) {
         long long count_in = 0;
         #pragma omp parallel if(omp_num > 0) num_threads(omp_num)
